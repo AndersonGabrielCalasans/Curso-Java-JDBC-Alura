@@ -16,7 +16,8 @@ public class Produto {
         BigDecimal preco;
         @Column(name = "data_criacao")
         private LocalDate dataCadastro;
-        @Enumerated(EnumType.STRING) // Cadastra como String no banco de dados
+//        @Enumerated(EnumType.STRING) // Cadastra como String no banco de dados
+        @ManyToOne // Cada produto tem uma categoria e uma categoria tem muitos produtos
         private Categoria categoria;
 
         public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
