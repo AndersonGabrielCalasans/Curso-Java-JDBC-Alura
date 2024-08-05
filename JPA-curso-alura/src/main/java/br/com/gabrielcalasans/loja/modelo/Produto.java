@@ -8,71 +8,86 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "produtos")
 public class Produto {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        Long id;
-        String nome;
-        String descricao;
-        BigDecimal preco;
-        @Column(name = "data_criacao")
-        private LocalDate dataCadastro;
-//        @Enumerated(EnumType.STRING) // Cadastra como String no banco de dados
-        @ManyToOne // Cada produto tem uma categoria e uma categoria tem muitos produtos
-        private Categoria categoria;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+    String nome;
+    String descricao;
+    BigDecimal preco;
+    @Column(name = "data_criacao")
+    private LocalDate dataCadastro;
+    //        @Enumerated(EnumType.STRING) // Cadastra como String no banco de dados
+    @ManyToOne(fetch = FetchType.LAZY) // Cada produto tem uma categoria e uma categoria tem muitos produtos
+    private Categoria categoria;
 
-        public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
-                this.nome = nome;
-                this.descricao = descricao;
-                this.preco = preco;
-                this.categoria = categoria;
-                this.dataCadastro = LocalDate.now();
-        }
+    public Produto() {
+    }
 
-        public Long getId() {
-                return id;
-        }
+    public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.categoria = categoria;
+        this.dataCadastro = LocalDate.now();
+    }
 
-        public void setId(Long id) {
-                this.id = id;
-        }
+    public Long getId() {
+        return id;
+    }
 
-        public String getNome() {
-                return nome;
-        }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-        public void setNome(String nome) {
-                this.nome = nome;
-        }
+    public String getNome() {
+        return nome;
+    }
 
-        public String getDescricao() {
-                return descricao;
-        }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-        public void setDescricao(String descricao) {
-                this.descricao = descricao;
-        }
+    public String getDescricao() {
+        return descricao;
+    }
 
-        public BigDecimal getPreco() {
-                return preco;
-        }
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-        public void setPreco(BigDecimal preco) {
-                this.preco = preco;
-        }
+    public BigDecimal getPreco() {
+        return preco;
+    }
 
-        public LocalDate getDataCadastro() {
-                return dataCadastro;
-        }
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
 
-        public void setDataCadastro(LocalDate dataCadastro) {
-                this.dataCadastro = dataCadastro;
-        }
+    public LocalDate getDataCadastro() {
+        return dataCadastro;
+    }
 
-        public Categoria getCategoria() {
-                return categoria;
-        }
+    public void setDataCadastro(LocalDate dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
 
-        public void setCategoria(Categoria categoria) {
-                this.categoria = categoria;
-        }
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", preco=" + preco +
+                ", dataCadastro=" + dataCadastro +
+                ", categoria=" + categoria.getNome() +
+                '}';
+    }
 }
